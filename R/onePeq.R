@@ -25,8 +25,8 @@
 #' Wellek 2010 Testing Statistical Hypotheses of Equivalence and Noninferiority
 #'
 #'
-#' @export
 #' @return 1 for reject, 0 for FTR
+#' @export
 #'
 onePeq <- function(mu, sd = 1, n, epsilon, alpha = 0.05, null = 0)
 {
