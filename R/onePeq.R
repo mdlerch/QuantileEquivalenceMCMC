@@ -30,10 +30,14 @@
 #'
 onePeq <- function(mu, sd = 1, n, epsilon, alpha = 0.05, null = 0)
 {
+    # subtract null value and standardize to sd = 1
     mu <- (mu - null) / sd
-    eps_twid <- sqrt(n) * epsilon
-    C_alpha <- sqrt(qchisq(alpha, 1, ncp = eps_twid))
+    # adjusted epsilon
+    eps_tilde <- sqrt(n) * epsilon
+    # rejection region boundary
+    C_alpha <- sqrt(qchisq(alpha, 1, ncp = eps_tilde))
 
+    # return result of test
     return(abs(mu) < 1 / sqrt(n) * C_alpha)
 
 }
