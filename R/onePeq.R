@@ -15,7 +15,7 @@
 #'
 #' @return 1 for reject, 0 for FTR
 #'
-tost <- function(mu, sd, n, epsilon, alpha = 0.05, null = 0)
+onePeq <- function(mu, sd, n, epsilon, alpha = 0.05, null = 0)
 {
     mu <- (mu - null) / sd
     eps_twid <- sqrt(n) * epsilon
