@@ -6,7 +6,7 @@
 qed(X, q, quant, epsilon = 0.01, alpha = 0.05)
 }
 \arguments{
-\item{X}{chain}
+\item{X}{matrix of chains}
 
 \item{q}{quantile of interest}
 
@@ -23,6 +23,6 @@ returned
 Perform the quantile equivalence diagnostic for a single chain
 }
 \details{
-work in progress
+Argument X is a matrix where each column is a chain
 }
 
