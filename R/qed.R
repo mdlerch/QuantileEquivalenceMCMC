@@ -25,7 +25,10 @@ qed <- function(X, q, quant, epsilon = 0.01, alpha = 0.05)
         p <- sum(X > q) / nrow(X)
         # use q for standard deviation
         s <- sqrt(q * (1 - q))
-        result[i] <- onePeq(p - q, s, nrow(X), epsilon, alpha)
+        # standardized and centralized Xbar
+        Xbar <- (p - q) / s
+        # do test on each chain
+        result[i] <- onePeq(Xbar, 1, nrow(X), epsilon, alpha)
     }
     return(prod(result))
 }
