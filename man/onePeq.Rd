@@ -30,7 +30,7 @@ Consider X_i ~ (theta, sigma) with sigma known.  We test the hypothesis H:
 abs(theta - null) >= epsilon against K: abs(theta - null) < epsilon.  From
 Wellek 2010 4.1, the UMP test is to compare abs(mu) to n^(-1/2) * C where C
 is the alphath quantile from a chisquare distribution with non centrality
-prameter sqrt(n)*epsilon and one degree of freedom.
+parameter sqrt(n)*epsilon and one degree of freedom.
 
 Wellek shows this for X_i ~ N(theta, sigma), but I think it should follow as
 long as Xbar ~ N(theta, sigma).
