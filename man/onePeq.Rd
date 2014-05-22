@@ -33,7 +33,7 @@ is the alphath quantile from a chisquare distribution with non centrality
 prameter sqrt(n)*epsilon and one degree of freedom.
 
 Wellek shows this for X_i ~ N(theta, sigma), but I think it should follow as
-long as \overline(X_i) ~ N(theta, sigma).
+long as Xbar ~ N(theta, sigma).
 }
 \references{
 Wellek 2010 Testing Statistical Hypotheses of Equivalence and Noninferiority
