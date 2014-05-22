@@ -3,14 +3,14 @@
 \alias{qed}
 \title{Compute the quantile equivalence diagnostic}
 \usage{
-qed(X, q, quant, epsilon = 0.01, alpha = 0.05)
+qed(X, quant, prob, epsilon = 0.01, alpha = 0.05)
 }
 \arguments{
 \item{X}{matrix of chains}
 
-\item{q}{quantile of interest}
+\item{quant}{quantile of interest}
 
-\item{quant}{percentile of quantile}
+\item{prob}{null probability of observation below quantile quant}
 
 \item{epsilon}{margin of error on quantile}
 
