@@ -14,7 +14,7 @@
 #' @return returned
 #' @export
 #'
-qed <- function(X, prob, epsilon = 0.01, alpha = 0.05)
+qed <- function(X, prob, epsilon = 0.005, alpha = 0.05)
 {
     nchains <- ncol(X)
     result <- numeric(nchains)
