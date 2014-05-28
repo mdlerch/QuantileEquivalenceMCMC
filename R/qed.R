@@ -4,7 +4,6 @@
 #' Perform the quantile equivalence diagnostic for a single chain
 #'
 #' @param X matrix of chains
-#' @param quant quantile of interest
 #' @param prob null probability of observation below quantile quant
 #' @param epsilon margin of error on quantile
 #' @param alpha significance level
@@ -15,12 +14,14 @@
 #' @return returned
 #' @export
 #'
-qed <- function(X, quant, prob, epsilon = 0.01, alpha = 0.05)
+qed <- function(X, prob, epsilon = 0.01, alpha = 0.05)
 {
     nchains <- ncol(X)
     result <- numeric(nchains)
     for (i in 1:nchains)
     {
+        # find the overall quantile
+        quant <- quantile(X, prob)
         # find the chain probability of less than quant
         # this is our uncentered Xbar
         p <- sum(X[ , i] < quant) / nrow(X)
