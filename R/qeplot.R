@@ -16,9 +16,10 @@
 qeplot <- function(chains, p)
 {
     quant <- quantile(chains, p)
+    q <- matrix(NA, ncol = ncol(chains), nrow = length(p))
     for (i in 1:length(p))
     {
-        q <- apply(chains, 2, function(x) sum(x > quant[i]) / length(x))
+        q[i, ] <- apply(chains, 2, function(x) sum(x < quant[i]) / length(x))
     }
     return(q)
 }
