@@ -3,15 +3,17 @@
 \alias{qeplot}
 \title{Plot quantiles from each chain}
 \usage{
-qeplot(chains, prob)
+qeplot(chains, prob, ...)
 }
 \arguments{
 \item{chains}{A matrix of MCMC's.  Each chain is a column.}
 
 \item{p}{A probability for a quantile or a vector of probabilities.}
+
+\item{...}{Arguments to plot}
 }
 \value{
-Nothing is returned
+A list.
 }
 \description{
 Plot quantiles from each chain

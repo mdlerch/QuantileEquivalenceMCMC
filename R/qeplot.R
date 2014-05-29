@@ -5,15 +5,17 @@
 #'
 #' @param chains A matrix of MCMC's.  Each chain is a column.
 #' @param p A probability for a quantile or a vector of probabilities.
+#' @param ... Arguments to plot
 #'
 #' @details
 #' Plots specified quantiles from each chain so that the researcher can
 #' assess convergence
 #'
-#' @return Nothing is returned
+#' @return
+#' A list.
 #' @export
 #'
-qeplot <- function(chains, prob)
+qeplot <- function(chains, prob, ...)
 {
     quant <- quantile(chains, prob)
     p <- matrix(NA, ncol = ncol(chains), nrow = length(prob))
@@ -27,5 +29,10 @@ qeplot <- function(chains, prob)
     {
         q[i, ] <- apply(chains, 2, function(x) quantile(x, prob[i]))
     }
-    return(q)
+
+    plot(p ~ q, type = "n")
+
+    plot(prob ~ quant, type = "p")
+
+    return(list(prob = prob, quant = quant, p = p, q = q))
 }
