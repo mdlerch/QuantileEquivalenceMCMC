@@ -13,13 +13,19 @@
 #' @return Nothing is returned
 #' @export
 #'
-qeplot <- function(chains, p)
+qeplot <- function(chains, prob)
 {
-    quant <- quantile(chains, p)
-    q <- matrix(NA, ncol = ncol(chains), nrow = length(p))
-    for (i in 1:length(p))
+    quant <- quantile(chains, prob)
+    p <- matrix(NA, ncol = ncol(chains), nrow = length(prob))
+    for (i in 1:length(prob))
     {
-        q[i, ] <- apply(chains, 2, function(x) sum(x < quant[i]) / length(x))
+        p[i, ] <- apply(chains, 2, function(x) sum(x < quant[i]) / length(x))
+    }
+
+    q <- matrix(NA, ncol = ncol(chains), nrow = length(prob))
+    for (i in 1:length(prob))
+    {
+        q[i, ] <- apply(chains, 2, function(x) quantile(x, prob[i]))
     }
     return(q)
 }
