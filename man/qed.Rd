@@ -3,12 +3,10 @@
 \alias{qed}
 \title{Compute the quantile equivalence diagnostic}
 \usage{
-qed(X, quant, prob, epsilon = 0.01, alpha = 0.05)
+qed(X, prob, epsilon = 0.005, alpha = 0.05)
 }
 \arguments{
 \item{X}{matrix of chains}
-
-\item{quant}{quantile of interest}
 
 \item{prob}{null probability of observation below quantile quant}
 
