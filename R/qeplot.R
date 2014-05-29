@@ -33,15 +33,20 @@ qeplot <- function(chains, prob, ...)
         q[i, ] <- apply(chains, 2, function(x) quantile(x, prob[i]))
     }
 
+    # using length of a single chain for N.  should it be nchains times this?
+    se <- sqrt(prob * (1 - prob) / nrow(chains))
+
     plot(p ~ q, type = "n", ...)
 
     points(prob ~ quant, pch = 0)
+    arrows(quant, prob + 2 * se, quant, prob - 2 * se, angle = 90, code = 3)
     for (i in 1:length(prob))
     {
         for (j in 1:ncol(chains))
         {
             lines(c(quant[i], q[i, j]), c(p[i, j], prob[i]), col = j)
             points(quant[i], p[i, j], col = j, pch = 19)
+            # arrows(quant[i], p[i, j] + 2 * se, quant[i], p[i, j] - 2 * se, angle = 90, col = j, code = 3)
             points(q[i, j], prob[i], col = j, pch = 19)
         }
     }
