@@ -17,7 +17,6 @@
 #'
 qeplot <- function(chains, prob, ...)
 {
-
     # get probabilities associated with overall quantile
     quant <- quantile(chains, prob)
     p <- matrix(NA, ncol = ncol(chains), nrow = length(prob))
@@ -39,7 +38,7 @@ qeplot <- function(chains, prob, ...)
     plot(p, q, type = "n", ...)
 
     points(prob, quant, pch = 0)
-    arrows(prob + 2 * se, quant, prob - 2 * se, angle = 90, quant, code = 3)
+    arrows(prob + 2 * se, quant, prob - 2 * se, quant, angle = 90, code = 3)
     for (i in 1:length(prob))
     {
         for (j in 1:ncol(chains))

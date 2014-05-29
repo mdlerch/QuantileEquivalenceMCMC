@@ -3,3 +3,4 @@
 export(onePeq)
 export(qed)
 export(qeplot)
+export(qeplot2)
