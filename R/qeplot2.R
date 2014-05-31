@@ -10,8 +10,8 @@
 #' @details
 #' Plot error bars for each chain
 #'
-#' @return Nothing is returned
 #' @export
+#' @return Nothing is returned
 #'
 qeplot2 <- function(chains, prob, ...)
 {

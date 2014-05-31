@@ -11,9 +11,9 @@
 #' Plots specified quantiles from each chain so that the researcher can
 #' assess convergence
 #'
+#' @export
 #' @return
 #' A list.
-#' @export
 #'
 qeplot <- function(chains, prob, ...)
 {
