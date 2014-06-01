@@ -33,6 +33,11 @@ qeplot <- function(chains, prob, ...)
     }
 
     # using length of a single chain for N.  should it be nchains times this?
+    # actually I do like this with N.  We might also consider putting bars on
+    # each chain's point estimate.  This will get messy quickly, so just
+    # putting one set on the "middle" point makes things cleaner and we can
+    # think that if the bar includes a chain's point, then bars around a chain
+    # would include the "middle" point
     se <- sqrt(prob * (1 - prob) / nrow(chains))
 
     plot(p, q, type = "n", ...)
