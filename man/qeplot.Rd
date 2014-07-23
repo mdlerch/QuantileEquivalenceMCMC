@@ -10,6 +10,8 @@ qeplot(chains, prob, errorBars = T, ...)
 
 \item{p}{A probability for a quantile or a vector of probabilities.}
 
+\item{errorBars}{Show wald error bars on overall estimate.  Default T.}
+
 \item{...}{Arguments to plot}
 }
 \value{

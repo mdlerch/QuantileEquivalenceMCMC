@@ -5,6 +5,7 @@
 #'
 #' @param chains A matrix of MCMC's.  Each chain is a column.
 #' @param p A probability for a quantile or a vector of probabilities.
+#' @param errorBars Show wald error bars on overall estimate.  Default T.
 #' @param ... Arguments to plot
 #'
 #' @details
