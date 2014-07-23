@@ -15,7 +15,7 @@
 #' @return
 #' A list.
 #'
-qeplot <- function(chains, prob, ...)
+qeplot <- function(chains, prob, errorBars = T, ...)
 {
     # get probabilities associated with overall quantile
     quant <- quantile(chains, prob)
@@ -43,7 +43,10 @@ qeplot <- function(chains, prob, ...)
     plot(p, q, type = "n", ...)
 
     points(prob, quant, pch = 0)
-    arrows(prob + 2 * se, quant, prob - 2 * se, quant, angle = 90, code = 3)
+    if (errorBars)
+    {
+        arrows(prob + 2 * se, quant, prob - 2 * se, quant, angle = 90, code = 3)
+    }
     for (i in 1:length(prob))
     {
         for (j in 1:ncol(chains))

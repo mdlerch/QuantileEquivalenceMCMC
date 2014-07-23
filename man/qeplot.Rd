@@ -3,7 +3,7 @@
 \alias{qeplot}
 \title{Plot quantiles from each chain}
 \usage{
-qeplot(chains, prob, ...)
+qeplot(chains, prob, errorBars = T, ...)
 }
 \arguments{
 \item{chains}{A matrix of MCMC's.  Each chain is a column.}
