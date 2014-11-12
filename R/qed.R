@@ -1,11 +1,11 @@
 #' Compute the quantile equivalence diagnostic
 #'
 #' @description
-#' Perform the quantile equivalence diagnostic for a single chain
+#' Perform the quantile equivalence diagnostic for a matrix of chains
 #'
 #' @param X matrix of chains
-#' @param prob null probability of observation below quantile quant
-#' @param epsilon margin of error on quantile
+#' @param prob posterior probability of interest
+#' @param epsilon margin of error on probability
 #' @param alpha significance level
 #'
 #' @details
