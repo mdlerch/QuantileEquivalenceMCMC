@@ -1,62 +1,52 @@
-#' Plot quantiles from each chain
-#'
-#' @description
-#' Plot quantiles from each chain
-#'
-#' @param chains A matrix of MCMC's.  Each chain is a column.
-#' @param p A probability for a quantile or a vector of probabilities.
-#' @param errorBars Show wald error bars on overall estimate.  Default T.
-#' @param ... Arguments to plot
-#'
-#' @details
-#' Plots specified quantiles from each chain so that the researcher can
-#' assess convergence
-#'
-#' @export
-#' @return
-#' A list.
-#'
-qeplot <- function(chains, prob, errorBars = T, ...)
+qeplot <- function(chains, prob, quant,
+                   xlab = NULL, ylab = NULL, main = NULL)
 {
+    if (missing(prob) & missing(quant))
+    {
+        stop("Must provide at least one of 'prob' or 'quant'")
+    }
+
+    if (!missing(prob) & !missing(quant))
+    {
+        warning("Provide only one of 'prob' or 'quant'\nUsing 'prob'...")
+    }
+
+    # Using naming scheme in manuscript
+
+    if (!missing(prob))
+    {
+        p_hat <- prob
+        C_hat <- quantile(chains, p_hat)
+    }
+    else
+    {
+        C_hat <- quant
+        p_hat <- sum(chains < C_hat) / length(c(chains))
+    }
+
     # get probabilities associated with overall quantile
-    quant <- quantile(chains, prob)
-    p <- matrix(NA, ncol = ncol(chains), nrow = length(prob))
-    for (i in 1:length(prob))
+    p_hat_i <- apply(chains, 2, function(x) sum(x < C_hat) / length(x))
+
+    # get quantiles associated with overall probability
+    C_hat_i <- apply(chains, 2, function(x) quantile(x, p_hat))
+
+    # set up plot
+    plot(p_hat, C_hat, type = "n", xlab = xlab, ylab = ylab, ...)
+
+    # plot overall point
+    points(p_hat, C_hat, pch = 0)
+
+    for (i in 1:ncol(chains))
     {
-        p[i, ] <- apply(chains, 2, function(x) sum(x < quant[i]) / length(x))
+        # plot horizontal band
+        points(p_hat_i[i], C_hat, col = i)
+        # plot vertical band
+        points(p_hat, C_hat_i[i], col = i)
+        # connection line
+        lines(c(p_hat_i[i], p_hat), c(C_hat, C_hat_i[i]), col = j)
     }
 
-    # get quantiles associated with specified probability
-    q <- matrix(NA, ncol = ncol(chains), nrow = length(prob))
-    for (i in 1:length(prob))
-    {
-        q[i, ] <- apply(chains, 2, function(x) quantile(x, prob[i]))
-    }
-
-    # using length of a single chain for N.  should it be nchains times this?
-    # actually I do like this with N.  We might also consider putting bars on
-    # each chain's point estimate.  This will get messy quickly, so just
-    # putting one set on the "middle" point makes things cleaner and we can
-    # think that if the bar includes a chain's point, then bars around a chain
-    # would include the "middle" point
-    se <- sqrt(prob * (1 - prob) / nrow(chains))
-
-    plot(p, q, type = "n", ...)
-
-    points(prob, quant, pch = 0)
-    if (errorBars)
-    {
-        arrows(prob + 2 * se, quant, prob - 2 * se, quant, angle = 90, code = 3)
-    }
-    for (i in 1:length(prob))
-    {
-        for (j in 1:ncol(chains))
-        {
-            lines(c(p[i, j], prob[i]), c(quant[i], q[i, j]), col = j)
-            points(p[i, j], quant[i], col = j, pch = 19)
-            points(prob[i], q[i, j], col = j, pch = 19)
-        }
-    }
-
-    return(list(prob = prob, quant = quant, p = p, q = q))
+    # invisibly return all values necessary to create this plot
+    invisible(list(p_hat = p_hat, C_hat = C_hat,
+                   p_hat_i = p_hat_i, C_hat_i = C_hat_i))
 }
