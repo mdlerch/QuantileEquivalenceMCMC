@@ -1,19 +1,3 @@
-#' Compute the quantile equivalence diagnostic
-#'
-#' @description
-#' Perform the quantile equivalence diagnostic for a matrix of chains
-#'
-#' @param X matrix of chains
-#' @param prob posterior probability of interest
-#' @param epsilon margin of error on probability
-#' @param alpha significance level
-#'
-#' @details
-#' Argument X is a matrix where each column is a chain
-#'
-#' @return returned
-#' @export
-#'
 qed <- function(X, prob, epsilon = 0.005, alpha = 0.05)
 {
     nchains <- ncol(X)
