@@ -1,4 +1,4 @@
-qeplot <- function(chains, prob, quant, ...)
+qeplot <- function(chains, prob, quant, plot = T, ...)
 {
     if (missing(prob) & missing(quant))
     {
@@ -30,20 +30,23 @@ qeplot <- function(chains, prob, quant, ...)
     C_hat_i <- apply(chains, 2, function(x) quantile(x, p_hat))
 
     # set up plot
-    plot(p_hat_i, C_hat_i, type = "n",
-         xlab = "Probability", ylab = "Quantile", ...)
-
-    # plot overall point
-    points(p_hat, C_hat, pch = 0)
-
-    for (i in 1:ncol(chains))
+    if (plot)
     {
-        # plot horizontal band
-        points(p_hat_i[i], C_hat, col = i)
-        # plot vertical band
-        points(p_hat, C_hat_i[i], col = i)
-        # connection line
-        lines(c(p_hat_i[i], p_hat), c(C_hat, C_hat_i[i]), col = i)
+        plot(p_hat_i, C_hat_i, type = "n",
+             xlab = "Probability", ylab = "Quantile", ...)
+
+        # plot overall point
+        points(p_hat, C_hat, pch = 0)
+
+        for (i in 1:ncol(chains))
+        {
+            # plot horizontal band
+            points(p_hat_i[i], C_hat, col = i)
+            # plot vertical band
+            points(p_hat, C_hat_i[i], col = i)
+            # connection line
+            lines(c(p_hat_i[i], p_hat), c(C_hat, C_hat_i[i]), col = i)
+        }
     }
 
     # invisibly return all values necessary to create this plot
