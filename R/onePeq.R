@@ -28,16 +28,11 @@
 #' @return 1 for reject, 0 for FTR
 #' @export
 #'
-onePeq <- function(mu, sd = 1, n, epsilon, alpha = 0.05, null = 0)
+onePZeq <- function(z, epsilon, alpha = 0.05)
 {
-    # subtract null value and standardize to sd = 1
-    mu <- (mu - null) / sd
-    # adjusted epsilon
-    eps_tilde <- sqrt(n) * epsilon
     # rejection region boundary
-    C_alpha <- sqrt(qchisq(alpha, 1, ncp = eps_tilde))
+    C_alpha <- sqrt(qchisq(alpha, 1, ncp = epsilon))
 
     # return result of test
-    return(abs(mu) < 1 / sqrt(n) * C_alpha)
-
+    return(abs(z) < C_alpha)
 }
