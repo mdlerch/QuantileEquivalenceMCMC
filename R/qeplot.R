@@ -1,4 +1,4 @@
-qeplot <- function(chains, prob, quant, plot = T, ...)
+qeplot <- function(chains, prob, quant, epsilon = 0.015, bars = TRUE, plot = TRUE, ...)
 {
     if (missing(prob) & missing(quant))
     {
@@ -37,6 +37,18 @@ qeplot <- function(chains, prob, quant, plot = T, ...)
 
         # plot overall point
         points(p_hat, C_hat, pch = 0)
+
+        # plot crossing lines
+        abline(v = p_hat, lty = 1, lwd = 8, col = "#d0d0d0")
+        abline(h = C_hat, lty = 1, lwd = 8, col = "#d0d0d0")
+
+        # plot error bars
+        if (bars)
+        {
+            delta <- epsilon - qnorm(.975) * sqrt(p_hat * (1- p_hat) / nrow(chains))
+            arrows(p_hat, C_hat, p_hat + delta, C_hat, angle = 90)
+            arrows(p_hat, C_hat, p_hat - delta, C_hat, angle = 90)
+        }
 
         for (i in 1:ncol(chains))
         {

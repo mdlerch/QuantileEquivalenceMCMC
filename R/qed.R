@@ -1,4 +1,4 @@
-qed <- function(X, prob, epsilon = 0.005, alpha = 0.05)
+qed <- function(X, prob, epsilon = 0.01, alpha = 0.05)
 {
     nchains <- ncol(X)
     n <- nrow(X)
@@ -12,18 +12,13 @@ qed <- function(X, prob, epsilon = 0.005, alpha = 0.05)
         phat <- sum(X[ , i] < quant) / nrow(X)
         # use prob for standard deviation
         # this is sd of X_i
-        s <- sqrt(prob * (1 - prob))
-        # standardized and centralized Xbar
-        # phat ~ N(p, sqrt(prob * (1 - prob) / n))
-        # Xbar = sqrt(n/(pq)) phat
-        # Xbar ~ N(sqrt(n/(pq))p, 1)
-        Xbar <- phat * sqrt(n) / s
-        # center Xbar about null value
-        Xbar <- Xbar - sqrt(n) / s * prob
+        s <- sqrt(prob * (1 - prob) / n)
+        # standardized and centralized Z
+        z <- 1 / s * (phat - prob)
         # move epsilon from phat scale to Xbar scale
-        epsilon.test <- epsilon * sqrt(n) / s
+        epsilon.tilde <- 1 / s * epsilon
         # do test on each chain
-        result[i] <- onePZeq(Xbar, epsilon.test, alpha)
+        result[i] <- onePZeq(z, epsilon.tilde, alpha)
     }
     return(prod(result))
 }

@@ -7,7 +7,7 @@
 }
 \usage{fun(arg1, arg2, ...)}
 \arguments{
-    expand with \item
+    \item{arg}{description}
 }
 \details{
     Extension of description
@@ -20,7 +20,5 @@
 \author{Name \email{myemail.email.com}}
 \seealso{Point to code \code{\link{...}}}
 \examples{
-     Shown and run
-    \dontrun{shown only}
 }
 \keyword{zero or more keywords}
