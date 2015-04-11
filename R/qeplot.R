@@ -46,6 +46,10 @@ qeplot <- function(chains, prob, quant, epsilon = 0.015, bars = TRUE, plot = TRU
         if (bars)
         {
             delta <- epsilon - qnorm(.975) * sqrt(p_hat * (1- p_hat) / nrow(chains))
+            if (delta < 0)
+            {
+                delta <- 0
+            }
             arrows(p_hat, C_hat, p_hat + delta, C_hat, angle = 90)
             arrows(p_hat, C_hat, p_hat - delta, C_hat, angle = 90)
         }

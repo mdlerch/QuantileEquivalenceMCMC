@@ -1,6 +1,6 @@
 Package: QuantileEquivalenceMCMC
 Title: What the package does (short line)
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: "First Last <first.last@example.com> [aut, cre]"
 Description: What the package does (paragraph)
 Depends:
