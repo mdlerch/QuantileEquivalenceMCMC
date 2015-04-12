@@ -36,7 +36,7 @@ qeplot <- function(chains, prob, quant, epsilon = 0.015, bars = TRUE, plot = TRU
              xlab = "Probability", ylab = "Quantile", ...)
 
         # plot overall point
-        points(p_hat, C_hat, pch = 0)
+        points(p_hat, C_hat, pch = 19)
 
         # plot crossing lines
         abline(v = p_hat, lty = 1, lwd = 8, col = "#d0d0d0")
@@ -57,9 +57,9 @@ qeplot <- function(chains, prob, quant, epsilon = 0.015, bars = TRUE, plot = TRU
         for (i in 1:ncol(chains))
         {
             # plot horizontal band
-            points(p_hat_i[i], C_hat, col = i)
+            points(p_hat_i[i], C_hat, col = i, pch = 19)
             # plot vertical band
-            points(p_hat, C_hat_i[i], col = i)
+            points(p_hat, C_hat_i[i], col = i, pch = 19)
             # connection line
             lines(c(p_hat_i[i], p_hat), c(C_hat, C_hat_i[i]), col = i)
         }
