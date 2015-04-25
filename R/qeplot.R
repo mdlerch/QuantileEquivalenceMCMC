@@ -29,6 +29,13 @@ qeplot <- function(chains, prob, quant, epsilon = 0.015, bars = TRUE, plot = TRU
     # get quantiles associated with overall probability
     C_hat_i <- apply(chains, 2, function(x) quantile(x, p_hat))
 
+    # get error bars
+    delta <- epsilon - qnorm(.975) * sqrt(p_hat * (1- p_hat) / nrow(chains))
+    if (delta < 0)
+    {
+        delta <- 0
+    }
+
     # set up plot
     if (plot)
     {
@@ -43,11 +50,6 @@ qeplot <- function(chains, prob, quant, epsilon = 0.015, bars = TRUE, plot = TRU
         abline(h = C_hat, lty = 1, lwd = 8, col = "#d0d0d0")
 
         # plot error bars
-        delta <- epsilon - qnorm(.975) * sqrt(p_hat * (1- p_hat) / nrow(chains))
-        if (delta < 0)
-        {
-            delta <- 0
-        }
         if (bars)
         {
             arrows(p_hat, C_hat, p_hat + delta, C_hat, angle = 90)
