@@ -43,13 +43,13 @@ qeplot <- function(chains, prob, quant, epsilon = 0.015, bars = TRUE, plot = TRU
         abline(h = C_hat, lty = 1, lwd = 8, col = "#d0d0d0")
 
         # plot error bars
+        delta <- epsilon - qnorm(.975) * sqrt(p_hat * (1- p_hat) / nrow(chains))
+        if (delta < 0)
+        {
+            delta <- 0
+        }
         if (bars)
         {
-            delta <- epsilon - qnorm(.975) * sqrt(p_hat * (1- p_hat) / nrow(chains))
-            if (delta < 0)
-            {
-                delta <- 0
-            }
             arrows(p_hat, C_hat, p_hat + delta, C_hat, angle = 90)
             arrows(p_hat, C_hat, p_hat - delta, C_hat, angle = 90)
         }
@@ -67,5 +67,6 @@ qeplot <- function(chains, prob, quant, epsilon = 0.015, bars = TRUE, plot = TRU
 
     # invisibly return all values necessary to create this plot
     invisible(list(p_hat = p_hat, C_hat = C_hat,
-                   p_hat_i = p_hat_i, C_hat_i = C_hat_i))
+                   p_hat_i = p_hat_i, C_hat_i = C_hat_i,
+                   delta = delta))
 }
