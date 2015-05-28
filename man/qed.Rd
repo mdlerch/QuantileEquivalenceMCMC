@@ -5,11 +5,12 @@
     Compute the Quantile Equivalence Diagnostic
 }
 \usage{
-qed(X, prob = NULL, quant = NULL, epsilon = 0.01, alpha = 0.05)
+qed(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
 }
 \arguments{
-    \item{X}{a numeric matrix.  matrix of chains for a scalar parameter.  Chains are given by
-        columns of X, each of the same lenth, \code{nrow(X)}}
+    \item{chains}{a numeric matrix.  The matrix of chains for a scalar
+        parameter.  Chains are given by columns of chains, each of the same
+        lenth, \code{nrow(chains)}}
     \item{prob}{numeric value in (0, 1).  The posterior probability of interest.}
     \item{quant}{numeric value.  The posterior quantile of interest.}
     \item{epsilon}{numeric value.  The tolerance level for the QED.}
