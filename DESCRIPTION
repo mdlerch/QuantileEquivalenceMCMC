@@ -1,9 +1,13 @@
 Package: QuantileEquivalenceMCMC
-Title: What the package does (short line)
-Version: 0.1.8
-Authors@R: "First Last <first.last@example.com> [aut, cre]"
-Description: What the package does (paragraph)
-Depends:
-    R (>= 3.1.0)
-License: What license is it under?
-LazyData: true
+Version: 0.2.0
+Date: 2015-05-28
+Title: Assess MCMC convergence using the Quantile Equivalence Diagnostic
+Author: Michael Lerch [aut, cre]
+Maintainer: Michael Lerch <mdlerch@gmail.com>
+Depends: R (>= 3.1.0)
+Suggests:
+Description: A package that provides methods to assess convergence of MCMC
+    chains using the Quantile Equivalence Diagnostic (QED).  The QED assesses
+    whether quantiles and probabilities of specific interest are estimated
+    consistently across chains.
+License: MIT
