@@ -13,9 +13,12 @@ qed <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
     {
         stop("alpha must be between 0 and 1")
     }
-    if (!missing(prob) & (prob >= 1 | prob <= 0))
+    if (missing(quant))
     {
-        stop("prob must be between 0 and 1")
+        if (prob >= 1 | prob <= 0)
+        {
+            stop("prob must be between 0 and 1")
+        }
     }
 
 
