@@ -1,3 +1,2 @@
 export(qed)
-export(qed2)
 export(qeplot)
