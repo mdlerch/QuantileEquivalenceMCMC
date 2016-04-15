@@ -10,7 +10,7 @@ install: $(PKG_NAME)_$(PKG_VERS).tar.gz
 
 build: $(PKG_NAME)_$(PKG_VERS).tar.gz
 
-check: $(PKG_NAME)_$(PKG_VERS).tar.gz
+test: $(PKG_NAME)_$(PKG_VERS).tar.gz
 	R CMD check $<
 
 clean:

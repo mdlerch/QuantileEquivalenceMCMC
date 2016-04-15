@@ -8,7 +8,7 @@ qeplot(chains, prob, quant, epsilon = 0.015, bars = TRUE, plot = TRUE, ...)
 \item{chains}{A matrix of MCMC's.  Each chain is a column.}
 \item{prob}{A posterior probability}
 \item{quant}{A posterior quantile}
-\item{epsilion}{QED tolerance level}
+\item{epsilon}{QED tolerance level}
 \item{bars}{Whether or not to plot approximate convergence range}
 \item{plot}{Whether or not to create the plot}
 \item{...}{Arguments to plot}
