@@ -36,7 +36,6 @@ qed <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
         # B <- Niter * var(t(xbar))
     }
 
-
     out
 }
 
@@ -49,6 +48,7 @@ qedtest <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
     }
 
     nchains <- ncol(chains)
+    if (nchains < 2) stop("Need at least two chains")
     n <- nrow(chains)
     result <- numeric(nchains)
     # find the overall quantile
