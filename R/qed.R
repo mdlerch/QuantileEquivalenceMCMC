@@ -25,10 +25,9 @@ qed <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
     if (is.matrix(chains))
     {
         out <- qedtest(chains, prob, quant, epsilon, alpha)
-    }
-    if (is.mcmc.list(chains))
-    {
+    } else {
         stop("mcmc.list compatibility is on the way")
+        # chains <- as.mcmc.list(chains)
         # x <- lapply(x, as.matrix)
         # S2 <- array(sapply(x, var, simplify=TRUE), dim=c(Nvar,Nvar,Nchain))
         # W <- apply(S2, c(1,2), mean)
@@ -38,7 +37,7 @@ qed <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
     }
 
 
-    qedtest(chains, prob, quant, epsilon, alpha)
+    out
 }
 
 qedtest <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
