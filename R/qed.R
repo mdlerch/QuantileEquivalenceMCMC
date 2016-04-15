@@ -26,6 +26,16 @@ qed <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
     {
         out <- qedtest(chains, prob, quant, epsilon, alpha)
     }
+    if (is.mcmc.list(chains))
+    {
+        stop("mcmc.list compatibility is on the way")
+        # x <- lapply(x, as.matrix)
+        # S2 <- array(sapply(x, var, simplify=TRUE), dim=c(Nvar,Nvar,Nchain))
+        # W <- apply(S2, c(1,2), mean)
+        # xbar <- matrix(sapply(x, apply, 2, mean, simplify=TRUE), nrow=Nvar,
+        #              ncol=Nchain)
+        # B <- Niter * var(t(xbar))
+    }
 
 
     qedtest(chains, prob, quant, epsilon, alpha)
