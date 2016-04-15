@@ -4,7 +4,7 @@ Date: 2015-05-28
 Title: Assess MCMC convergence using the Quantile Equivalence Diagnostic
 Author: Michael Lerch [aut, cre]
 Maintainer: Michael Lerch <mdlerch@gmail.com>
-Depends: R (>= 3.1.0)
+Depends: R (>= 3.1.0), coda
 Suggests:
 Description: A package that provides methods to assess convergence of MCMC
     chains using the Quantile Equivalence Diagnostic (QED).  The QED assesses

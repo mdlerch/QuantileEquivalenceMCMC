@@ -21,7 +21,18 @@ qed <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
         }
     }
 
+    # TODO: check if chains are matrix or convertible to mcmc.list
+    if (is.matrix(chains))
+    {
+        out <- qedtest(chains, prob, quant, epsilon, alpha)
+    }
 
+
+    qedtest(chains, prob, quant, epsilon, alpha)
+}
+
+qedtest <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
+{
     # _quantile_ or _probability_ problem?
     if (missing(prob))
     {
