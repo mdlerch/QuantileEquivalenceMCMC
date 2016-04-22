@@ -62,6 +62,11 @@ qedtest <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
         phat <- sum(chains[ , i] < quant) / nrow(chains)
         # get the alpha and beta
         ab <- getAlphaBeta(chains[ , i] < quant)
+        if (ab[1] == 0 | ab[2] == 0 | any(is.na(ab)))
+        {
+            warning("At least one chain is completely above or below the quantile")
+            return(0)
+        }
         # get the sd of p-hat from cox and miller
         s <- sqrt((ab[1] * ab[2] * (2 - ab[1] - ab[2])) / (n * (ab[1] + ab[2]) ^ 3))
         # standardized and centralized Z
@@ -74,7 +79,7 @@ qedtest <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
     return(as.integer(prod(result)))
 }
 
-getAlphaBeta <- function(chain)
+getAlphaBeta <- function(chain, prob)
 {
     n <- length(chain)
     alpha <- sum((!chain[-n]) * chain[-1]) / sum(chain[-n])
