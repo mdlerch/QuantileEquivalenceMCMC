@@ -1,4 +1,4 @@
-qeplot <- function(chains, prob, quant, epsilon = 0.015, bars = TRUE, plot = TRUE, ...)
+qeplot <- function(chains, prob, quant, epsilon = 0.015, bars = FALSE, plot = TRUE, ...)
 {
     if (missing(prob) & missing(quant))
     {
