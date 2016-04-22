@@ -52,15 +52,18 @@ qedtest <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
     n <- nrow(chains)
     result <- numeric(nchains)
     # find the overall quantile
+    # TODO: is this line right?
     quant <- quantile(chains, prob)
     for (i in 1:nchains)
     {
         # chains ~ bernoulli(p)
-        # phat ~ N(p, sqrt(p (1 - p) / n))
+        # phat ~ N(p, sqrt(ab * ( 2 - a - b) / (n * (a + b) ^3)
+        # cox miller pg 138 eq. 220
         phat <- sum(chains[ , i] < quant) / nrow(chains)
-        # use prob for standard deviation
-        # this is sd of chains_i
-        s <- sqrt(prob * (1 - prob) / n)
+        # get the alpha and beta
+        ab <- getAlphaBeta(chains[ , i] < quant)
+        # get the sd of p-hat from cox and miller
+        s <- sqrt((ab[1] * ab[2] * (2 - ab[1] - ab[2])) / (n * (ab[1] + ab[2]) ^ 3))
         # standardized and centralized Z
         z <- 1 / s * (phat - prob)
         # move epsilon from phat scale to Xbar scale
@@ -70,3 +73,12 @@ qedtest <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
     }
     return(as.integer(prod(result)))
 }
+
+getAlphaBeta <- function(chain)
+{
+    n <- length(chain)
+    alpha <- sum((!chain[-n]) * chain[-1]) / sum(chain[-n])
+    beta <- sum((chain[-n]) * (!chain[-1])) / sum(!chain[-n])
+    return(c(alpha, beta))
+}
+
