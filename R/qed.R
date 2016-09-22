@@ -1,4 +1,4 @@
-qed <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
+qed <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05, param == NULL)
 {
     # check input
     if (missing(prob) & missing(quant))
@@ -21,21 +21,22 @@ qed <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05)
         }
     }
 
-    # TODO: check if chains are matrix or convertible to mcmc.list
-    if (is.matrix(chains))
-    {
-        out <- qedtest(chains, prob, quant, epsilon, alpha)
-    } else {
-        stop("mcmc.list compatibility is on the way")
-        # chains <- as.mcmc.list(chains)
-        # x <- lapply(x, as.matrix)
-        # S2 <- array(sapply(x, var, simplify=TRUE), dim=c(Nvar,Nvar,Nchain))
-        # W <- apply(S2, c(1,2), mean)
-        # xbar <- matrix(sapply(x, apply, 2, mean, simplify=TRUE), nrow=Nvar,
-        #              ncol=Nchain)
-        # B <- Niter * var(t(xbar))
+    if (class(chains) == "mcmc.list") {
+        x <- lapply(x, as.matrix)
+    } else if (class(chains) == "stanfit") {
+        if (param == NULL || length(param) > 1)
+        {
+            stop("Specify a single param")
+        }
+        chains <- extract(chains, pars = param, permuted = FALSE)
+    } else if (!is.matrix(chains)) {
+        tryCatch({chains <- as.mcmc.list(chains)},
+                 error = function(e) {stop("Cannot convert to mcmc.list")})
+        chains <- as.mcmc.list(chains)
+        x <- lapply(x, as.matrix)
     }
 
+    out <- qedtest(chains, prob, quant, epsilon, alpha)
     out
 }
 
