@@ -1,6 +1,6 @@
 Package: QuantileEquivalenceMCMC
-Version: 0.3.2
-Date: 2016-04-22
+Version: 0.3.3
+Date: 2016-09-22
 Title: Assess MCMC convergence using the Quantile Equivalence Diagnostic
 Author: Michael Lerch [aut, cre]
 Maintainer: Michael Lerch <mdlerch@gmail.com>
