@@ -23,6 +23,8 @@ qeplot <- function(chains, prob, quant, epsilon = 0.015, bars = FALSE, plot = TR
         p_hat <- sum(chains < C_hat) / length(c(chains))
     }
 
+    chains <- extract_chains(chains, pars)
+
     # get probabilities associated with overall quantile
     p_hat_i <- apply(chains, 2, function(x) sum(x < C_hat) / length(x))
 

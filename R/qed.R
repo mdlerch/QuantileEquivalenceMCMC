@@ -1,4 +1,4 @@
-qed <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05, param = NULL)
+qed <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05, pars = NULL)
 {
     # check input
     if (missing(prob) & missing(quant))
@@ -21,26 +21,7 @@ qed <- function(chains, prob, quant, epsilon = 0.01, alpha = 0.05, param = NULL)
         }
     }
 
-    if (class(chains) == "mcmc.list") {
-        x <- lapply(x, as.matrix)
-    } else if (class(chains) == "stanfit") {
-
-        chains <- extract(chains, pars = param, permuted = FALSE)
-
-        if (length(dim(chains)) == 3 & dim(chains)[3] == 1)
-        {
-            chains <- chains[ , , 1]
-        }
-        if (length(dim(chains)) > 2)
-        {
-            stop("Could not extract single parameter")
-        }
-    } else if (!is.matrix(chains)) {
-        tryCatch({chains <- as.mcmc.list(chains)},
-                 error = function(e) {stop("Cannot convert to mcmc.list")})
-        chains <- as.mcmc.list(chains)
-        x <- lapply(x, as.matrix)
-    }
+    chains <- extract_chains(chains, pars)
 
     out <- qedtest(chains, prob, quant, epsilon, alpha)
     out
