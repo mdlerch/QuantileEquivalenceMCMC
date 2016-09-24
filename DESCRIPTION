@@ -6,6 +6,10 @@ Author: Michael Lerch [aut, cre]
 Maintainer: Michael Lerch <mdlerch@gmail.com>
 Depends: R (>= 3.1.0), coda
 Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder:
+    knitr
 Description: A package that provides methods to assess convergence of MCMC
     chains using the Quantile Equivalence Diagnostic (QED).  The QED assesses
     whether quantiles and probabilities of specific interest are estimated
