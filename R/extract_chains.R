@@ -25,9 +25,13 @@ extract_chains <- function(chains, pars = NULL)
 
     # mcmc.list
     if (class(chains) == "mcmc.list") {
-        chains <- lapply(chains, as.matrix)
-        stop("Don't know how to extract single param yet...")
+        nchains <- length(samps)
+        chains <- as.matrix(chains)
+        chains <- matrix(chains[ , dimnames(chains)[[2]] == pars], ncol = nchains)
+        return(chains)
     }
+
+
 
 
     stop("Unrecognized class of chains.  Try converting to matrix")
