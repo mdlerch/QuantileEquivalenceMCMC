@@ -1,4 +1,4 @@
-qeplot <- function(chains, prob, quant, pars = NULL, epsilon = 0.015, bars = FALSE, plot = TRUE, ...)
+qeplot <- function(chains, prob, quant, pars = NULL, epsilon = 0.015, plot = TRUE, ...)
 {
     if (missing(prob) & missing(quant))
     {
@@ -33,11 +33,11 @@ qeplot <- function(chains, prob, quant, pars = NULL, epsilon = 0.015, bars = FAL
     C_hat_i <- apply(chains, 2, function(x) quantile(x, p_hat))
 
     # get error bars
-    delta <- epsilon - qnorm(.975) * sqrt(p_hat * (1- p_hat) / nrow(chains))
-    if (delta < 0)
-    {
-        delta <- 0
-    }
+    # delta <- epsilon - qnorm(.975) * sqrt(p_hat * (1- p_hat) / nrow(chains))
+    # if (delta < 0)
+    # {
+    #     delta <- 0
+    # }
 
     # set up plot
     if (plot)
@@ -52,12 +52,12 @@ qeplot <- function(chains, prob, quant, pars = NULL, epsilon = 0.015, bars = FAL
         abline(v = p_hat, lty = 1, lwd = 8, col = "#d0d0d0")
         abline(h = C_hat, lty = 1, lwd = 8, col = "#d0d0d0")
 
-        # plot error bars
-        if (bars)
-        {
-            arrows(p_hat, C_hat, p_hat + delta, C_hat, angle = 90)
-            arrows(p_hat, C_hat, p_hat - delta, C_hat, angle = 90)
-        }
+        # # plot error bars
+        # if (bars)
+        # {
+        #     arrows(p_hat, C_hat, p_hat + delta, C_hat, angle = 90)
+        #     arrows(p_hat, C_hat, p_hat - delta, C_hat, angle = 90)
+        # }
 
         for (i in 1:ncol(chains))
         {
@@ -72,6 +72,5 @@ qeplot <- function(chains, prob, quant, pars = NULL, epsilon = 0.015, bars = FAL
 
     # invisibly return all values necessary to create this plot
     invisible(list(p_hat = p_hat, C_hat = C_hat,
-                   p_hat_i = p_hat_i, C_hat_i = C_hat_i,
-                   delta = delta))
+                   p_hat_i = p_hat_i, C_hat_i = C_hat_i))
 }
