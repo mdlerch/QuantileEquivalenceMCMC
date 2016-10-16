@@ -38,13 +38,13 @@ cars.data <- with(mtcars, list(y = mpg, hp = hp, cyl = cyl, wt = wt,
 model <- jags.model(textConnection(model_string), data = cars.data,
                     n.chains = 4, n.adapt = 10000)
 
-samps <- jags.samples(model, n.iter = 100000, variable.names = c("beta", "sigma"), thin = 5)
+samps <- coda.samples(model, 100000, variable.names = c("beta", "sigma"), thin = 5)
 @
 
 <<qed>>=
 library(QuantileEquivalenceMCMC)
 
-qed(samps, prob = 0.90, epsilon = 0.05, pars = "beta[1]")
+qed(samps, prob = 0.95, epsilon = 0.05, pars = "beta[1]")
 @
 
 <<qeplot>>=

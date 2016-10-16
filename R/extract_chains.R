@@ -25,15 +25,36 @@ extract_chains <- function(chains, pars = NULL)
 
     # mcmc.list
     if (class(chains) == "mcmc.list") {
-        nchains <- length(samps)
+        nchains <- length(chains)
         chains <- as.matrix(chains)
         chains <- matrix(chains[ , dimnames(chains)[[2]] == pars], ncol = nchains)
         return(chains)
     }
 
+    # jags (list of mcarrays)
+    if (class(chains) == "list")
+    {
+        convertible <- TRUE
+        for (el in chains)
+        {
+            if (class(el) != "mcarray")
+            {
+                convertible <- FALSE
+            }
+        }
+        if (convertible)
+        {
+            nchains <- length(as.mcmc.list(chains[[1]]))
+            out <- NULL
+            for (i in 1:length(chains))
+            {
+                out <- cbind(out, as.matrix(as.mcmc.list(chains[[i]])))
+            }
+            out <- matrix(out[ , dimnames(out)[[2]] == pars], ncol = nchains)
+            return(out)
+        }
+    }
 
-
-
-    stop("Unrecognized class of chains.  Try converting to matrix")
+    stop("Unrecognized class of chains.  Try converting to matrix or mcmc.list with coda.")
 }
 

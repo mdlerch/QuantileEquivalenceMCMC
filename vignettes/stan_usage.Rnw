@@ -11,6 +11,7 @@
 
 
 <<stan, warning = FALSE, message = FALSE, results='hide'>>=
+set.seed(1)
 library(rstan)
 
 data(mtcars)
