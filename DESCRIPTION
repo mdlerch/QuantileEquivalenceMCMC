@@ -4,7 +4,7 @@ Date: 2016-10-16
 Title: Assess MCMC convergence using the Quantile Equivalence Diagnostic
 Author: Michael Lerch [aut, cre]
 Maintainer: Michael Lerch <mdlerch@gmail.com>
-Depends: R (>= 3.1.0), coda
+Depends: R (>= 3.1.0), coda, rstan, rjags
 Suggests:
     knitr,
     rmarkdown

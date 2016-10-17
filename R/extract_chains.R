@@ -11,7 +11,8 @@ extract_chains <- function(chains, pars = NULL)
     # stan
     if (class(chains) == "stanfit")
     {
-        chains <- extract(chains, pars = pars, permuted = FALSE)
+        library(rstan)
+        chains <- rstan::extract(chains, pars = pars, permuted = FALSE)
         if (length(dim(chains)) == 3 & dim(chains)[3] == 1)
         {
             chains <- chains[ , , 1]
@@ -25,6 +26,7 @@ extract_chains <- function(chains, pars = NULL)
 
     # mcmc.list
     if (class(chains) == "mcmc.list") {
+        library(coda)
         nchains <- length(chains)
         chains <- as.matrix(chains)
         chains <- matrix(chains[ , dimnames(chains)[[2]] == pars], ncol = nchains)
@@ -44,6 +46,7 @@ extract_chains <- function(chains, pars = NULL)
         }
         if (convertible)
         {
+            library(coda)
             nchains <- length(as.mcmc.list(chains[[1]]))
             out <- NULL
             for (i in 1:length(chains))
