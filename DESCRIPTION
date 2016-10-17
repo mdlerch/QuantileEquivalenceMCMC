@@ -1,13 +1,16 @@
 Package: QuantileEquivalenceMCMC
-Version: 0.3.7
+Version: 0.3.8
 Date: 2016-10-16
 Title: Assess MCMC convergence using the Quantile Equivalence Diagnostic
 Author: Michael Lerch [aut, cre]
 Maintainer: Michael Lerch <mdlerch@gmail.com>
-Depends: R (>= 3.1.0), coda, rstan, rjags
+Depends: R (>= 3.1.0)
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    rstan,
+    coda,
+    rjags
 VignetteBuilder:
     knitr
 Description: A package that provides methods to assess convergence of MCMC
